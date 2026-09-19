@@ -1,0 +1,23 @@
+{
+  "name": "agentic-fraud-ring-detection",
+  "version": "1.0.0",
+  "description": "Agentic AI Fraud Ring Detection Website - Hackwell 2.0 (Team Graph Guardians)",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js"
+  },
+  "keywords": [
+    "fraud-ring-detection",
+    "agentic-ai",
+    "graph-analysis",
+    "hackwell",
+    "saranathan"
+  ],
+  "author": "Team Graph Guardians (Vijayasarathi B, Sanjay B, Vishal B S, Santhana Thanush M)",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}

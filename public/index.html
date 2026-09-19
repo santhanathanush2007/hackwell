@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic AI Fraud Ring Detection | Hackwell 2.0 - Team Graph Guardians</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="logo-badge">
+          <span class="pulse-indicator"></span>
+          <span class="logo-icon">🛡️</span>
+          <div>
+            <div class="brand-title">GRAPH GUARDIANS <span class="version-tag">AGENTIC v2.0</span></div>
+            <div class="brand-subtitle">Autonomous AI Fraud Ring Detection Platform</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-center">
+        <div class="hackathon-pill">
+          <span class="college-logo">🎓</span>
+          <span class="hack-name">HACKWELL 2.0</span>
+          <span class="divider">|</span>
+          <span class="college-name">SARANATHAN COLLEGE OF ENGINEERING</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button id="btn-run-pipeline" class="btn btn-primary glow-btn">
+          <span class="btn-icon">⚡</span> Run Autonomous Agent Pipeline
+        </button>
+        <button id="btn-reset-data" class="btn btn-secondary">
+          <span class="btn-icon">🔄</span> Reset Graph
+        </button>
+      </div>
+    </header>
+
+    <!-- Top KPI Metrics Bar -->
+    <section class="kpi-grid">
+      <div class="kpi-card danger-card">
+        <div class="kpi-label">Active Threat Rings</div>
+        <div class="kpi-value-row">
+          <span id="metric-threat-rings" class="kpi-value text-red">3</span>
+          <span class="kpi-badge badge-red">CRITICAL ACTION</span>
+        </div>
+        <div class="kpi-hint">Linked networks actively circulating funds</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Total Linked Entities</div>
+        <div class="kpi-value-row">
+          <span id="metric-entities" class="kpi-value">21</span>
+          <span class="kpi-subtext"><span id="metric-edges">28</span> Relationships</span>
+        </div>
+        <div class="kpi-hint">Accounts • Devices • IPs • KYC IDs</div>
+      </div>
+
+      <div class="kpi-card warning-card">
+        <div class="kpi-label">Exposed Capital at Risk</div>
+        <div class="kpi-value-row">
+          <span id="metric-fraud-volume" class="kpi-value text-amber">₹11,35,000</span>
+          <span class="kpi-badge badge-amber">UNDER REVIEW</span>
+        </div>
+        <div class="kpi-hint">High velocity layering and drain volume</div>
+      </div>
+
+      <div class="kpi-card success-card">
+        <div class="kpi-label">Neutralized Rings</div>
+        <div class="kpi-value-row">
+          <span id="metric-frozen-rings" class="kpi-value text-green">0</span>
+          <span class="kpi-subtext">of <span id="metric-total-rings">3</span> Total Rings</span>
+        </div>
+        <div class="kpi-hint">Human-in-the-loop frozen accounts</div>
+      </div>
+
+      <div class="kpi-card info-card">
+        <div class="kpi-label">Agentic Model Accuracy</div>
+        <div class="kpi-value-row">
+          <span id="metric-accuracy" class="kpi-value text-cyan">96.8%</span>
+          <span class="kpi-badge badge-cyan">AUTONOMOUS</span>
+        </div>
+        <div class="kpi-hint">5-Agent Verification Pipeline</div>
+      </div>
+    </section>
+
+    <!-- Main Workspace Layout -->
+    <main class="main-layout">
+      <!-- Left Panel: Threat Rings Queue -->
+      <aside class="panel left-panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="panel-icon">🚨</span> Detected Fraud Rings
+          </div>
+          <span id="ring-count-badge" class="badge badge-red">3 Rings</span>
+        </div>
+
+        <div class="filter-bar">
+          <button class="filter-chip active" data-filter="all">All</button>
+          <button class="filter-chip" data-filter="CRITICAL">Critical</button>
+          <button class="filter-chip" data-filter="HIGH">High</button>
+          <button class="filter-chip" data-filter="FROZEN">Frozen</button>
+        </div>
+
+        <div id="rings-list-container" class="rings-list">
+          <!-- Populated dynamically by app.js -->
+        </div>
+
+        <div class="team-credits">
+          <div class="team-title">TEAM GRAPH GUARDIANS</div>
+          <div class="team-members">Vijayasarathi B • Sanjay B • Vishal B.S • Santhana Thanush M</div>
+        </div>
+      </aside>
+
+      <!-- Center Panel: Graph Visualization -->
+      <section class="panel center-panel">
+        <div class="panel-header graph-header">
+          <div class="panel-title">
+            <span class="panel-icon">🕸️</span> Connected Entity Graph Network
+          </div>
+          <div class="graph-controls">
+            <button id="btn-zoom-in" class="ctrl-btn" title="Zoom In">+</button>
+            <button id="btn-zoom-out" class="ctrl-btn" title="Zoom Out">−</button>
+            <button id="btn-reset-view" class="ctrl-btn" title="Reset View">🎯</button>
+            <button id="btn-highlight-all" class="ctrl-btn active" title="Toggle Threat Glow">✨</button>
+          </div>
+        </div>
+
+        <div class="graph-viewport-wrapper">
+          <canvas id="graph-canvas"></canvas>
+
+          <!-- Graph Overlay Legend -->
+          <div class="graph-legend">
+            <div class="legend-item"><span class="legend-dot acc-dot"></span> Account (ACC)</div>
+            <div class="legend-item"><span class="legend-dot dev-dot"></span> Device (DEV)</div>
+            <div class="legend-item"><span class="legend-dot ip-dot"></span> Proxy / IP (IP)</div>
+            <div class="legend-item"><span class="legend-dot kyc-dot"></span> KYC / ID (ID)</div>
+            <div class="legend-divider"></div>
+            <div class="legend-item"><span class="legend-line txn-line"></span> Fund Transfer</div>
+            <div class="legend-item"><span class="legend-line attr-line"></span> Attribute Link</div>
+          </div>
+
+          <!-- Hover Tooltip -->
+          <div id="graph-tooltip" class="graph-tooltip"></div>
+        </div>
+      </section>
+
+      <!-- Right Panel: Agent Live Pipeline & Simulator -->
+      <aside class="panel right-panel">
+        <div class="tabs-nav">
+          <button class="tab-btn active" data-tab="tab-agents">Agents Pipeline</button>
+          <button class="tab-btn" data-tab="tab-simulator">Live Ingestion</button>
+          <button class="tab-btn" data-tab="tab-audit">Audit Trail</button>
+        </div>
+
+        <!-- TAB 1: Agent Pipeline Stepper -->
+        <div id="tab-agents" class="tab-content active">
+          <div class="agent-stepper-header">
+            <div>
+              <div class="stepper-title">5-Agent Detection Flow</div>
+              <div class="stepper-sub">Slide 05 Autonomous Pipeline</div>
+            </div>
+            <span id="pipeline-status-badge" class="badge badge-green">Ready</span>
+          </div>
+
+          <div class="agent-stepper">
+            <!-- Agent 1 -->
+            <div class="agent-step-item" id="step-agent-1">
+              <div class="step-marker">1</div>
+              <div class="step-body">
+                <div class="step-header">
+                  <span class="step-name">Data Input Agent</span>
+                  <span class="step-status">Active</span>
+                </div>
+                <div class="step-desc">Normalizes transactions, accounts, hardware IDs, and network signals.</div>
+              </div>
+            </div>
+
+            <!-- Agent 2 -->
+            <div class="agent-step-item" id="step-agent-2">
+              <div class="step-marker">2</div>
+              <div class="step-body">
+                <div class="step-header">
+                  <span class="step-name">Analysis Agent</span>
+                  <span class="step-status">Active</span>
+                </div>
+                <div class="step-desc">Flags velocity anomalies, rapid hops, and round-number layering.</div>
+              </div>
+            </div>
+
+            <!-- Agent 3 -->
+            <div class="agent-step-item" id="step-agent-3">
+              <div class="step-marker">3</div>
+              <div class="step-body">
+                <div class="step-header">
+                  <span class="step-name">Entity Linking Agent</span>
+                  <span class="step-status">Active</span>
+                </div>
+                <div class="step-desc">Traverses multi-hop graphs to uncover device farms & synthetic KYC collisions.</div>
+              </div>
+            </div>
+
+            <!-- Agent 4 -->
+            <div class="agent-step-item" id="step-agent-4">
+              <div class="step-marker">4</div>
+              <div class="step-body">
+                <div class="step-header">
+                  <span class="step-name">Risk Scoring Agent</span>
+                  <span class="step-status">Active</span>
+                </div>
+                <div class="step-desc">Detects circular money cycles, computes risk (0-100), and drafts Explainable AI dossiers.</div>
+              </div>
+            </div>
+
+            <!-- Agent 5 -->
+            <div class="agent-step-item" id="step-agent-5">
+              <div class="step-marker">5</div>
+              <div class="step-body">
+                <div class="step-header">
+                  <span class="step-name">Alert & Analyst Review Agent</span>
+                  <span class="step-status">Active</span>
+                </div>
+                <div class="step-desc">Prioritizes emergency freeze alerts with human-in-the-loop audit containment.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="recent-logs-section">
+            <div class="sub-title">Agent Execution Stream</div>
+            <div id="agent-logs-container" class="agent-logs-box">
+              <!-- Logs populated dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: Live Ingestion Simulator -->
+        <div id="tab-simulator" class="tab-content">
+          <div class="sim-header">
+            <div class="stepper-title">Real-Time Transaction Injector</div>
+            <div class="stepper-sub">Test live detection against the agent swarm</div>
+          </div>
+
+          <form id="sim-form" class="sim-form">
+            <div class="form-group">
+              <label>Source Account ID</label>
+              <input type="text" id="sim-from" placeholder="e.g. ACC-105" value="ACC-105" required>
+            </div>
+
+            <div class="form-group">
+              <label>Destination Account ID</label>
+              <input type="text" id="sim-to" placeholder="e.g. ACC-101" value="ACC-101" required>
+            </div>
+
+            <div class="form-group">
+              <label>Amount (₹)</label>
+              <input type="number" id="sim-amount" placeholder="Amount" value="75000" required>
+            </div>
+
+            <div class="form-group">
+              <label>Device ID (Optional)</label>
+              <input type="text" id="sim-device" placeholder="e.g. DEV-901" value="DEV-901">
+            </div>
+
+            <div class="quick-scenarios">
+              <div class="quick-title">Quick Demo Scenarios:</div>
+              <div class="scenario-buttons">
+                <button type="button" class="btn-scenario" id="preset-circular">🔄 Inject Cycle Hop</button>
+                <button type="button" class="btn-scenario" id="preset-farm">📱 Inject Farm Drain</button>
+                <button type="button" class="btn-scenario" id="preset-clean">✅ Inject Clean Txn</button>
+              </div>
+            </div>
+
+            <button type="submit" id="btn-submit-txn" class="btn btn-primary full-width">
+              ⚡ Inject & Trigger Agent Swarm
+            </button>
+          </form>
+        </div>
+
+        <!-- TAB 3: Audit Trail -->
+        <div id="tab-audit" class="tab-content">
+          <div class="sim-header">
+            <div class="stepper-title">Analyst Audit & Containment Trail</div>
+            <div class="stepper-sub">Permanent record of human-in-the-loop decisions</div>
+          </div>
+          <div id="audit-trail-container" class="audit-list">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Deep Ring Investigation Modal / Drawer -->
+    <div id="ring-modal" class="modal-backdrop hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-header-left">
+            <span id="modal-ring-icon" class="modal-icon">🚨</span>
+            <div>
+              <h2 id="modal-ring-title">Operation Blackhole (Mule Layering Ring)</h2>
+              <div id="modal-ring-meta" class="modal-meta">ID: RING-101 • Archetype: Circular Money Mule Network</div>
+            </div>
+          </div>
+          <button id="btn-close-modal" class="btn-close">&times;</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="modal-top-summary">
+            <div class="score-box">
+              <div class="score-num" id="modal-score">95</div>
+              <div class="score-label" id="modal-threat-badge">CRITICAL THREAT</div>
+            </div>
+            <div class="stats-pills">
+              <div class="stat-pill"><span class="pill-label">Exposed Volume:</span> <strong id="modal-volume">₹11,21,000</strong></div>
+              <div class="stat-pill"><span class="pill-label">Linked Entities:</span> <strong id="modal-entities-count">8 nodes</strong></div>
+              <div class="stat-pill"><span class="pill-label">Containment Status:</span> <strong id="modal-status">TRIAGED</strong></div>
+            </div>
+          </div>
+
+          <div class="investigation-section">
+            <div class="sec-title">🤖 Explainable AI Autonomous Verdict</div>
+            <div id="modal-ai-explanation" class="ai-box"></div>
+          </div>
+
+          <div class="investigation-section">
+            <div class="sec-title">⚠️ Forensic Detection Indicators</div>
+            <ul id="modal-indicators" class="indicators-list"></ul>
+          </div>
+
+          <div class="investigation-section">
+            <div class="sec-title">🔗 Connected Entities in Ring</div>
+            <div id="modal-nodes-list" class="connected-nodes-grid"></div>
+          </div>
+
+          <div class="investigation-section">
+            <div class="sec-title">🛡️ Human-in-the-Loop Analyst Containment Actions</div>
+            <div class="analyst-actions-grid">
+              <button id="btn-action-freeze" class="btn btn-freeze">
+                🧊 Freeze Entire Ring (All Accounts)
+              </button>
+              <button id="btn-action-flag" class="btn btn-flag">
+                🚩 Flag for LEA / Regulatory Escalation
+              </button>
+              <button id="btn-action-dismiss" class="btn btn-secondary">
+                🛡️ Dismiss as False Positive
+              </button>
+              <button id="btn-export-dossier" class="btn btn-outline">
+                📄 Export Forensic Dossier
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="graphRenderer.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
